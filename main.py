@@ -8,7 +8,7 @@ app = Flask(__name__)
 # Configure logging to output to the console (which shows up in Cloud Run logs)
 logging.basicConfig(level=logging.INFO)
 
-@app.route('/webhook', methods=['POST'])
+@app.route('/', methods=['POST'])
 def webhook():
     # 1. Get the JSON data from the request
     data = request.get_json(force=True)
