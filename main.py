@@ -27,8 +27,3 @@ def webhook():
     # 4. Fallback for non-text messages (photos, voice, etc.)
     logging.info("Received a non-text update (e.g., photo or sticker)")
     return "OK", 200
-
-if __name__ == '__main__':
-    # Cloud Run provides a $PORT environment variable. Default to 8080.
-    port = int(os.environ.get("PORT", 8080))
-    app.run(host='0.0.0.0', port=port)
