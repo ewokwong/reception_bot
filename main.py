@@ -3,6 +3,8 @@ import json
 import logging
 import os
 
+from handlers import messageHandler, commandHandler
+
 app = Flask(__name__)
 
 # Configure logging to output to the console (which shows up in Cloud Run logs)
@@ -13,12 +15,18 @@ def webhook():
     # 1. Get the JSON data from the request
     data = request.get_json(force=True)
     
-    # 2. Log the request body (formatted for readability)
-    logging.info("--- New Webhook Received ---")
-    logging.info(f"Headers: {dict(request.headers)}")
-    logging.info(f"Body: {json.dumps(data, indent=2)}")
+    message = data.get('message', {})
+    text = message.get('text', '')
+
+    if text:
+        if text.startswith('/'):
+            return commandHandler.processMessage(data)
+        else:
+            return messageHandler.processMessage(data)
     
-    return "ok", 200
+    # 4. Fallback for non-text messages (photos, voice, etc.)
+    logging.info("Received a non-text update (e.g., photo or sticker)")
+    return "OK", 200
 
 if __name__ == '__main__':
     # Cloud Run provides a $PORT environment variable. Default to 8080.
