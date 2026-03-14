@@ -12,7 +12,7 @@ def processMessage(data):
     # Only add the 'Something Else' button if they aren't already on that screen
     if choice != "something_else":
         markup_list.append([{"text": "❓ Something else / Ask a question", "callback_data": "something_else"}])
-        markup_list.append[{"text": "📞 Request a Call-back", "callback_data": "get_call"}]
+        markup_list.append([{"text": "📞 Request a Call-back", "callback_data": "get_call"}])
 
     elif choice == "get_call":
         text = (
