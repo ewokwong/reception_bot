@@ -2,8 +2,8 @@
 # This ignores your local python setup
 receptionbot/
 venv/
-env/
-.venv/
+__pycache__/
+*.pyc
 
 # Environment Variables
 # This ignores your API keys and secrets
