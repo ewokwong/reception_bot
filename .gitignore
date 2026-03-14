@@ -1,6 +1,6 @@
 # Virtual Environment
 # This ignores your local python setup
-tradingbot/
+receptionbot/
 venv/
 env/
 .venv/
