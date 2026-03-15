@@ -17,10 +17,8 @@ def webhook():
         return buttonHandler.processMessage(data)
 
     message = data.get('message')
-    text = message.get('text', '')
     if message:
         text = message.get('text')
-        
         if text:
             if text.startswith('/'):
                 return commandHandler.processMessage(data)
