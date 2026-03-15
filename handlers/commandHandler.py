@@ -4,6 +4,7 @@ from clients import telegramClient
 
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 TELEGRAM_URL = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+
 def startCommand(data):
     first_name = data['message']['from'].get('first_name', 'there')
     
