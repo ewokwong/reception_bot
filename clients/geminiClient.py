@@ -25,6 +25,3 @@ def get_gemini_response(user_query):
         )
     )
     return response.text
-
-
-def process_message()
