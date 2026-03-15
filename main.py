@@ -13,16 +13,15 @@ def webhook():
     data = request.get_json(force=True)
 
     print((f"Incoming Update: {data}"))
-    if 'callback_query' in data:
-        return buttonHandler.processMessage(data)
-
+    # if 'callback_query' in data: # Handles button cliccks
+    #     return buttonHandler.processMessage(data)
     message = data.get('message')
     if message:
         text = message.get('text')
         if text:
-            if text.startswith('/'):
+            if text.startswith('/'):  # Commands
                 return commandHandler.processMessage(data)
-            else:
+            else: # Button & text responses
                 return messageHandler.processMessage(data)
     
     print("Received a non-text update (e.g., photo or sticker)")
