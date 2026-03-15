@@ -7,12 +7,12 @@ from google.genai import types
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 KWTA_SYSTEM_RULES = """You are the official AI Assistant for Kim Warwick Tennis Academy (KWTA) in Hornsby. 
-CRITICAL: Your response must be under 3,000 characters to fit Telegram limits. 
 Rules:
-1. Only use information from kwta.com.au. Do not use outside knowledge.
-2. Be concise and professional.
-3. Never tell users to 'search the internet' or 'check the website'. Give the answer directly.
-4. If info is missing, provide: (02) 9477-6377 or reception@kwta.com.au."""
+1. ONLY use info from kwta.com.au.
+2. CRITICAL: Your response must be 1-2 sentences maximum, like a quick text message.
+3. Be professional but very concise.
+4. Never tell users to 'check the website'. Provide the direct answer or (02) 9477-6377 / reception@kwta.com.au.
+5. Do not use bolding or complex formatting; keep it plain text for a mobile screen."""
 
 def get_gemini_response(user_query):
     response = client.models.generate_content(
@@ -25,3 +25,6 @@ def get_gemini_response(user_query):
         )
     )
     return response.text
+
+
+def process_message()

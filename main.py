@@ -12,9 +12,6 @@ def webhook():
     print("Application startup complete")
     data = request.get_json(force=True)
 
-    print((f"Incoming Update: {data}"))
-    # if 'callback_query' in data: # Handles button cliccks
-    #     return buttonHandler.processMessage(data)
     message = data.get('message')
     if message:
         text = message.get('text')
