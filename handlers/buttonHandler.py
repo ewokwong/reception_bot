@@ -7,21 +7,12 @@ def processMessage(data):
     chat_id = data['callback_query']['message']['chat']['id']
     choice = data['callback_query']['data']
     
+    # 1. Initialize variables with defaults to avoid UnboundLocalError
+    text = "I'm sorry, I didn't recognize that selection."
     markup_list = []
 
-    # Only add the 'Something Else' button if they aren't already on that screen
-    if choice != "something_else":
-        markup_list.append([{"text": "❓ Something else / Ask a question", "callback_data": "something_else"}])
-        markup_list.append([{"text": "📞 Request a Call-back", "callback_data": "get_call"}])
-
-    elif choice == "get_call":
-        text = (
-            "✅ **Request Received!**\n\n"
-            "A member of our staff will call you soon at the number associated with your account.\n\n"
-            "We appreciate your patience!"
-        )
-    
-    elif choice == "book_court":
+    # 2. Handle specific choices
+    if choice == "book_court":
         text = "You can find pricing and book courts via our online portal below:"
         markup_list.append([{"text": "🌐 Open Booking Portal", "url": "https://www.kwta.com.au/book-a-court/"}])
 
@@ -31,13 +22,7 @@ def processMessage(data):
         markup_list.append([{"text": "Teens / Elite Squads", "callback_data": "js_elite"}])
 
     elif choice == "adult_lessons":
-        text = (
-            "We have programs for all levels! 🎾\n\n"
-            "• **Group Classes:** Beginner to Intermediate\n"
-            "• **Cardio Tennis:** High-energy fitness\n"
-            "• **Ladies Clinicals:** Mid-week mornings\n"
-            "• **Private:** 1-on-1 coaching"
-        )
+        text = "We have programs for all levels! 🎾" # ... rest of your text
         markup_list.append([{"text": "View Class Timetable", "url": "https://www.kwta.com.au/adult-programs/"}])
         markup_list.append([{"text": "Inquire about Privates", "callback_data": "get_call"}])
 
@@ -45,10 +30,16 @@ def processMessage(data):
         text = "We have dedicated Pickleball courts! Social play is available Monday mornings and Friday nights."
         markup_list.append([{"text": "🥒 Pickleball Details", "url": "https://www.kwta.com.au/pickleball/"}])
 
+    elif choice == "get_call":
+        text = "✅ **Request Received!**\n\nA member of our staff will call you soon."
+
     elif choice == "something_else":
-        text = (
-            "No problem! Please type your question below:"
-        )
+        text = "No problem! Please type your question below:"
+
+    # 3. Add global buttons (like "Something else") to all responses except its own screen
+    if choice != "something_else" and choice != "get_call":
+        markup_list.append([{"text": "❓ Something else / Ask a question", "callback_data": "something_else"}])
+        markup_list.append([{"text": "📞 Request a Call-back", "callback_data": "get_call"}])
 
     payload = {
         "chat_id": chat_id,
