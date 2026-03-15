@@ -3,7 +3,7 @@ import json
 import logging
 import os
 
-from handlers import messageHandler, commandHandler, buttonHandler
+from handlers import messageHandler, commandHandler
 
 app = Flask(__name__)
 
